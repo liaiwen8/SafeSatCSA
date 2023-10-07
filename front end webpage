@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<style>
+h1 {text-align: center;}
+p {text-align: center;}
+p {
+  background-image: url('img_girl.jpg');
+}
+
+</style>
+
+<body>
+
+<h1>Safe Sat</h1>
+<p>Keep your satellite safe, check your orbit for collisions with known space objects</p>
+
+
+<br><br>
+<br><br>
+
+</body>
+</html>
+
+
+
+
+
+
+
+<style>
+form {text-align: center;}
+</style>
+
+
+<form action="/action_page.php">
+<label for="user_inclination">Inclination:</label>
+  <input type="number" id="user_inclination" name="uinclination_name"><br><br>
+  <label for="user_apogee">Apogee:</label>
+  <input type="number" id="user_apogee" name="uapogee_name"><br><br>
+  <label for="user_perogee">Perogee:</label>
+  <input type="number" id="user_perogee" name="uperogee_name"><br><br>  
+  <input type="submit" value="Submit">
+</form>
+
+
+
+
+
+
+<!DOCTYPE html>
+<div class="bg">
+	<div class="focus"></div>
+	<canvas width=410 height=250></canvas>
+    
+</div>
+
+<html>
+
+<head>
+<style>
+
+.bg {
+	position: relative;
+	margin: 20px auto 0 auto;
+	width: 400px;
+	height: 240px;
+    border: solid thin #111;
+	border-radius: 100% 100%;
+    
+    #background: black;
+}
+
+.focus {
+	position: absolute;
+	top: 105px;
+	right: 40px;
+	width: 30px;
+	height: 30px;
+	background-color: blue;
+	border-radius: 50%;
+	box-shadow: 0 0 20px 5px white;
+}
+
+canvas {
+	position: absolute;
+	left: -7px;
+	top: -3px;
+    #background: black;
+}
+
+body {
+	
+    
+	background: grey;
+    
+}
+</style>
+
+</head>
+<body>
+
+<script>
+
+var canvas = document.querySelector('canvas');
+var ctx = canvas.getContext('2d');
+var hw = canvas.width/2;
+var hh = canvas.height/2;
+ctx.transform(1, 0, 0, -1, hw, hh);
+ctx.fillStyle = "skyblue";
+
+// Ellipse dimension
+var a = 200;		// Semi major axis
+var b = 120;		// Semi minor axis
+var c = 160;		// Distance from origin to 1 focus
+
+var ba = a-.001;	// Boundary for a
+var s = 1;			// Sign of y co-ordinate
+var xi = -ba;		// x index
+var px, py;			// x and y coordinate on ellipse
+var vx = 0;			// x component of orbital velocity
+var u = 1;			// Gravitional parameter (M*6.67e-11)
+var T = 2 * Math.PI * a**1.5 / u**0.5;		// Orbital period
+var dt = T / 1000;								// A slice of time
+
+function next() {
+	window.requestAnimationFrame(next);
+	ctx.clearRect(px-1, py-1, 6, 6);
+	
+	px = xi + vx * dt;
+	if(s*px > ba) {
+		px = s*ba;
+		s = -s;
+	}
+	py = s*b * (1 - px*px/a/a)**0.5;
+	vx = py/b * (u*a/((px - c)**2 + py*py))**0.5;
+	xi = px;
+	ctx.fillRect(px, py, 4, 4);
+}
+
+next();
+
+</script>
+
+
+</body>
+</html>
