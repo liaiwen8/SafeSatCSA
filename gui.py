@@ -1,6 +1,11 @@
 import tkinter as tk
+from PIL import Image, ImageTk
 
 root= tk.Tk()
+
+img = ImageTk.PhotoImage(Image.open("satellite.png"))
+panel = tk.Label(root, image = img)
+panel.pack(side = "top", fill = "both", expand = "yes")
 
 canvas1 = tk.Canvas(root, width=600, height=600, relief='raised')
 canvas1.pack()
