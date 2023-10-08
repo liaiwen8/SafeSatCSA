@@ -1,62 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<style>
-h1 {text-align: center;}
-p {text-align: center;}
-p {
-  background-image: url('img_girl.jpg');
+    <head>
+        <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+    <style>
+h1 {text-align: left;}
+p {text-align: left;}
+
+.myDiv {
+
+border: 5px outset white;
+  background-image: url('earth-1756274_1280.jpg');
+  background-size: 100% 100%;    
+  text-align: center;
 }
 
+form {text-align: center;}
+
 </style>
+    </head>
 
 <body>
 
-<h1>Safe Sat</h1>
-<p>Keep your satellite safe, check your orbit for collisions with known space objects</p>
+<div class="myDiv">
+<h1 style="color:White;">Safe Sat</h1>
+</div>
 
+<p>Keep your satellite safe, check your orbit for collisions with known space objects</p
+>
 
 <br><br>
 <br><br>
 
-</body>
-</html>
-
-
-
-
-
-
-
-<style>
-form {text-align: center;}
-</style>
-
-
-<form action="/action_page.php">
+<form action="welcome.php" method="post">
 <label for="user_inclination">Inclination:</label>
-  <input type="number" id="user_inclination" name="uinclination_name"><br><br>
+  <input type="number" id="user_inclination" name="uinclination_name" value= "30"><br><br>
   <label for="user_apogee">Apogee:</label>
-  <input type="number" id="user_apogee" name="uapogee_name"><br><br>
+  <input type="number" id="user_apogee" name="uapogee_name" value= "200"><br><br>
   <label for="user_perogee">Perogee:</label>
-  <input type="number" id="user_perogee" name="uperogee_name"><br><br>  
+  <input type="number" id="user_perogee" name="uperogee_name" value= "120" ><br><br>  
   <input type="submit" value="Submit">
 </form>
 
-
-
-
-
-
-<!DOCTYPE html>
 <div class="bg">
 	<div class="focus"></div>
+    <div style="background-color:black;color:white;padding:140px;">
 	<canvas width=410 height=250></canvas>
-    
+
 </div>
 
 <html>
 
-<head>
 <style>
 
 .bg {
@@ -66,7 +59,7 @@ form {text-align: center;}
 	height: 240px;
     border: solid thin #111;
 	border-radius: 100% 100%;
-    
+
     #background: black;
 }
 
@@ -89,17 +82,21 @@ canvas {
 }
 
 body {
-	
-    
-	background: grey;
-    
+
+
+	background: white;
+
 }
 </style>
 
-</head>
 <body>
 
+
+
 <script>
+var uu = "<?php echo $_POST["uapogee_name"]; ?>";
+var aa = "<?php echo $_POST["uperogee_name"]; ?>";
+
 
 var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
@@ -111,7 +108,7 @@ ctx.fillStyle = "skyblue";
 // Ellipse dimension
 var a = 200;		// Semi major axis
 var b = 120;		// Semi minor axis
-var c = 160;		// Distance from origin to 1 focus
+var c = (aa+uu)*0.5;		// Distance from origin to 1 focus
 
 var ba = a-.001;	// Boundary for a
 var s = 1;			// Sign of y co-ordinate
@@ -125,7 +122,7 @@ var dt = T / 1000;								// A slice of time
 function next() {
 	window.requestAnimationFrame(next);
 	ctx.clearRect(px-1, py-1, 6, 6);
-	
+
 	px = xi + vx * dt;
 	if(s*px > ba) {
 		px = s*ba;
@@ -141,6 +138,24 @@ next();
 
 </script>
 
+<div>
+    from skyfield.api import load, wgs84
+
+url = 'https://celestrak.org/NORAD/elements/gp.php?GROUP=active&FORMAT=tle'
+satellites = load.tle_file(url)
+print('Loaded', len(satellites), 'satellites')
+
+inS = int(input("serial: "))
+
+by_number = {sat.model.satnum: sat for sat in satellites}
+satellite = by_number[inS]
+print(satellite)
+ts = load.timescale()
+t = ts.now()
+geocentric = satellite.at(t)
+print(geocentric.position.km)
+</div>
 
 </body>
+
 </html>
