@@ -3,6 +3,7 @@ from numpy import number
 from skyfield.api import load, wgs84
 from numpy.linalg import norm
 from skyfield.api import EarthSatellite
+from PIL import Image, ImageTk
 
 # Function to input TLE data from the user
 
@@ -15,6 +16,9 @@ analyst = load.tle_file(analystURL, filename='ana.php')
 
 root= tk.Tk()
 
+img = ImageTk.PhotoImage(Image.open("satellite.png"))
+panel = tk.Label(root, image = img)
+panel.pack(side = "top", fill = "both", expand = "yes")
 
 canvas1 = tk.Canvas(root, width=600, height=600, relief='raised')
 canvas1.pack()
