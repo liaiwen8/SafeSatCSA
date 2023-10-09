@@ -1,3 +1,6 @@
+# NOTE
+to run program, download safesat.exe and run the executable
+
 # Links
 PRESENTATION: https://www.canva.com/design/DAFwsr4p2U8/VEOEmV1OR8EZZBdKEwAqFw/edit
 
