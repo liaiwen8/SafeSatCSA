@@ -1,5 +1,5 @@
 # NOTE
-to run program, download safesat.exe and run the executable
+to run program, download safesat.exe and run the executable (not for judges)
 
 # Links
 PRESENTATION: https://www.canva.com/design/DAFwsr4p2U8/wcc3HvSrvfgnNRv9WqNKNg/view?utm_content=DAFwsr4p2U8&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink
